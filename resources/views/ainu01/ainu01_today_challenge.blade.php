@@ -37,7 +37,7 @@
 
         var results = {};
         // 本番環境では先頭に..をつける。
-        post("/ainu01/ainu01_today_challenge/create", results);
+        post("../ainu01/ainu01_today_challenge/create", results);
 
         //クイズの配列を設定
         //answerの選択肢の数はいくつでもOK　ただし先頭を正解とすること(出題時に選択肢はシャッフルされる)
@@ -226,7 +226,7 @@
             results["quiz_success_count"] = quiz_success_cnt;
 
             // 本番環境では先頭に..をつける。
-            post("/ainu01/ainu01_today_challenge/update", results)
+            post("../ainu01/ainu01_today_challenge/update", results)
 
             setTimeout(function(){
                 //表示を元に戻す
@@ -312,7 +312,7 @@
             results["quiz_point"] = quiz_pt;
 
             // 本番環境では先頭に..をつける。
-            post("/ainu01/ainu01_today_challenge/update", results);
+            post("../ainu01/ainu01_today_challenge/update", results);
 
             if(quiz_fin_cnt === quiz_success_cnt){
                 text += '<br>全問正解おめでとう！';

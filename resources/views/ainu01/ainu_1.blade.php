@@ -73,7 +73,9 @@
 <script type="text/javascript">
 
     function OnTodaysButtonClicked() {
-        post("/ainu01/ainu01_today_challenge/click", {})
+
+        // 本番環境では先頭に..をつける。
+        post("../ainu01/ainu01_today_challenge/click", {})
     }
 
     async function post(url, results) {
@@ -95,7 +97,9 @@
                 console.log("json: ", json);
 
                 if (json["playable"] == true) {
-                    location.href = '/ainu01/ainu01_today_challenge';
+
+                    // 本番環境では先頭に..をつける。
+                    location.href = '../ainu01/ainu01_today_challenge';
                 }
                 else {
                     alert("挑戦できる回数は1日1回までです。");
