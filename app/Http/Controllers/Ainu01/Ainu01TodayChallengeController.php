@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Ainu01;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
+use DateTime;
 
 class Ainu01TodayChallengeController extends Controller
 {
@@ -53,6 +55,22 @@ class Ainu01TodayChallengeController extends Controller
         }
         elseif ($current_point >= 300) {
             \Auth::user()->status()->update(["ainu01_cognomen" => "神"]);
+        }
+    }
+
+    public function click(Request $request) {
+
+        $current_date = new DateTime();
+        $current_date = $current_date->format("Y-m-d");
+        $old_date = strtotime(\Auth::user()->status->ainu01_access_date);
+
+        if ($old_date != strtotime($current_date)) {
+
+            \Auth::user()->status()->update(["ainu01_access_date" => $current_date]);
+            echo json_encode(["playable" => true]);
+        }
+        else {
+            echo json_encode(["playable" => false]);
         }
     }
 }

@@ -16,9 +16,13 @@ return new class extends Migration
         Schema::create('statuses', function (Blueprint $table) {
 
             $table->id();
-            $table->boolean("extend_app_enable")->default(false);
+            $table->boolean("ainu01_enable")->default(true);
+            $table->boolean("ainu02_enable")->default(false);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $date = new DateTime();
+            $date = $date->sub(new DateInterval('P1Y1M1D'))->format("Y-m-d");
+            $table->date("ainu01_access_date")->default($date);
             $table->integer("ainu01_total_quiz_point")->default(0);
             $table->integer("ainu01_practice_count")->default(0);
             $table->string("ainu01_cognomen")->default("初心者ぺー");

@@ -40,7 +40,7 @@
                 <p class="card-text">今日のランダム問題に挑戦しよう！</p>
                 <p class="card-text"><small class="text-muted">一日一回、ポイントは10倍だ！<br>全レベルからランダムに出るぞ！</small></p>
                 <div style="text-align:center;">
-                    <a class="btn btn-primary" href="{{ url('/ainu01/ainu01_today_challenge') }}" role="button">挑戦する</a>
+                    <a class="btn btn-primary" role="button", onclick="OnTodaysButtonClicked();">挑戦する</a>
                 </div>
             </div>
         </div>
@@ -69,5 +69,40 @@
     </div>
 </div>
 </div>
+
+<script type="text/javascript">
+
+    function OnTodaysButtonClicked() {
+        post("/ainu01/ainu01_today_challenge/click", {})
+    }
+
+    async function post(url, results) {
+
+        // 本番環境では先頭に..をつける。
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(results)
+        })
+            .then(response => {
+                console.log(response.status);
+                return response.json();
+            })
+            .then(json => {
+                console.log("json: ", json);
+
+                if (json["playable"] == true) {
+                    location.href = '/ainu01/ainu01_today_challenge';
+                }
+                else {
+                    alert("挑戦できる回数は1日1回までです。");
+                }
+            })
+            .catch(err => console.log(err));
+    }
+</script>
 
 @endsection()

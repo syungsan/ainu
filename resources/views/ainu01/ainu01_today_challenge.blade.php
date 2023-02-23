@@ -29,8 +29,6 @@
 
     $(function(){
 
-        create();
-
         var quizArea = $('.quiz_area'); //クイズを管理するDOMを指定
         var quiz_html = quizArea.html(); //もう一度　を押した時に元に戻すため初期HTMLを変数で保管
         var quiz_cnt = 0; //現在の問題数を管理
@@ -38,6 +36,8 @@
         var quiz_success_cnt = 0; //問題の正解数
 
         var results = {};
+        // 本番環境では先頭に..をつける。
+        post("/ainu01/ainu01_today_challenge/create", results);
 
         //クイズの配列を設定
         //answerの選択肢の数はいくつでもOK　ただし先頭を正解とすること(出題時に選択肢はシャッフルされる)
@@ -225,7 +225,8 @@
             results[`question${quiz_cnt + 1}`] = correctness;
             results["quiz_success_count"] = quiz_success_cnt;
 
-            update(results)
+            // 本番環境では先頭に..をつける。
+            post("/ainu01/ainu01_today_challenge/update", results)
 
             setTimeout(function(){
                 //表示を元に戻す
@@ -309,7 +310,9 @@
             var text = quiz_fin_cnt + '問中' + quiz_success_cnt + '問正解！' + quiz_pt + 'pt 獲得！';
 
             results["quiz_point"] = quiz_pt;
-            update(results);
+
+            // 本番環境では先頭に..をつける。
+            post("/ainu01/ainu01_today_challenge/update", results);
 
             if(quiz_fin_cnt === quiz_success_cnt){
                 text += '<br>全問正解おめでとう！';
@@ -334,25 +337,9 @@
         }
     });
 
-    async function create() {
+    async function post(url, results) {
 
-        // 本番環境では先頭に..をつける。
-        fetch("/ainu01/ainu01_today_challenge/create", {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'Content-Type': 'application/json'
-            },
-            body: {}
-        })
-            .then(res => { console.log(res); })
-            .catch(err => console.log(err));
-    }
-
-    async function update(results) {
-
-        // 本番環境では先頭に..をつける。
-        fetch("/ainu01/ainu01_today_challenge/update", {
+        fetch(url, {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),

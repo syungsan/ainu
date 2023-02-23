@@ -33,6 +33,9 @@ Route::middleware(['auth', 'user-access:0'])->group(function () {
     Route::post('/ainu01/ainu01_today_challenge/create', [App\Http\Controllers\Ainu01\Ainu01TodayChallengeController::class, 'create'])->name('ainu01.ainu01_today_challenge.create');
     Route::get('/ainu01/ainu01_today_challenge/update', [App\Http\Controllers\Ainu01\Ainu01TodayChallengeController::class, 'update'])->name('ainu01.ainu01_today_challenge.update');
     Route::post('/ainu01/ainu01_today_challenge/update', [App\Http\Controllers\Ainu01\Ainu01TodayChallengeController::class, 'update'])->name('ainu01.ainu01_today_challenge.update');
+    Route::get('/ainu01/ainu01_today_challenge/click', [App\Http\Controllers\Ainu01\Ainu01TodayChallengeController::class, 'click'])->name('ainu01.ainu01_today_challenge.click');
+    Route::post('/ainu01/ainu01_today_challenge/click', [App\Http\Controllers\Ainu01\Ainu01TodayChallengeController::class, 'click'])->name('ainu01.ainu01_today_challenge.click');
+
 });
 
 // Add admin access routes
