@@ -10,7 +10,9 @@ class Status extends Model
     use HasFactory;
 
     protected $fillable = [
-        'extend_app_enable',
+        "ainu01_enable",
+        "ainu02_enable",
+        "ainu01_access_date",
         "ainu01_total_quiz_point",
         "ainu01_practice_count",
         "ainu01_cognomen",
